@@ -47,32 +47,35 @@ int main() {
             printf("3. getsecret()\n");
             printf("Input: ");
             scanf("%d", &reguser);
-             if (reguser == 1) {
-                funcs[0] = malloc(sizeof(funcpoint));
-                *funcs[0] = dead;
-             }
-             if (reguser == 2) {
-                funcs[1] = malloc(sizeof(funcpoint));
-                *funcs[1] = telljoke;
-             }
-             if (reguser == 3) {
-                funcs[2] = malloc(sizeof(funcpoint));
-                *funcs[2] = getsecret;
-             }
+
+            if (1 <= reguser && reguser <= 3 && funcs[reguser - 1] == NULL) {
+ 
+                // Allocate memory for the function
+                funcs[reguser - 1] = (funcpoint*) malloc(sizeof(funcpoint));
+                if (reguser == 1)
+                    *funcs[0] = dead;
+                if (reguser == 2)
+                    *funcs[1] = telljoke;
+                if (reguser == 3)
+                    *funcs[2] = getsecret;
+            } else {
+                printf("This function is already registered!");
+            }
+
         }
         else if (user == 2) {
             int deluser;
             printf("Pick function 1, 2, or 3 to delete.\n");
             printf("Input: ");
             scanf("%d", &deluser);
-            if (deluser == 1) {
-                free(funcs[0]);
-            }
-            if (deluser == 2) {
-                free(funcs[1]);
-            }
-            if (deluser == 3) {
-                free(funcs[2]);
+            // Check input, check if pointer registered.
+            if (1 <= deluser && deluser <= 3 && funcs[deluser - 1] != NULL) {
+ 
+                // Deallocate memory
+                free(funcs[deluser - 1]);
+ 
+            } else {
+                printf("This function is already deleted!");
             }
         }
         else if (user == 3) {
@@ -80,14 +83,13 @@ int main() {
             printf("Pick function 1, 2, or 3 to use.\n");
             printf("Input: ");
             scanf("%d", &useuser);
-            if (useuser == 1) {
-                (*funcs[0])();
-            }
-            if (useuser == 2) {
-                (*funcs[1])();
-            }
-            if (useuser == 3) {
-                printf("You're not allowed to see the secret, sorry!\n");
+            if (1 <= useuser && useuser <= 3 && funcs[useuser - 1] != NULL) {
+                if (useuser == 3)
+                    printf("You're not allowed to see the secret, sorry!");
+                else
+                    (*funcs[useuser - 1])();
+            } else {
+                printf("This function is not registered!");
             }
         }
         else if (user == 4) {
