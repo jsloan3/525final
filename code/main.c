@@ -1,3 +1,6 @@
+// Code vulnerable to a use-after-free attack
+// Written for the F24 CPSC 525 final project
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -33,6 +36,7 @@ int main() {
         printf("3. Use a function\n");
         printf("4. Exit\n");
         printf("Input: ");
+
         scanf("%d", &user);
 
         if (user == 1) {
@@ -56,7 +60,7 @@ int main() {
                 *funcs[2] = getsecret;
              }
         }
-        if (user == 2) {
+        else if (user == 2) {
             int deluser;
             printf("Pick function 1, 2, or 3 to delete.\n");
             printf("Input: ");
@@ -71,7 +75,7 @@ int main() {
                 free(funcs[2]);
             }
         }
-        if (user == 3) {
+        else if (user == 3) {
             int useuser;
             printf("Pick function 1, 2, or 3 to use.\n");
             printf("Input: ");
@@ -86,8 +90,11 @@ int main() {
                 printf("You're not allowed to see the secret, sorry!\n");
             }
         }
-        if (user == 4) {
+        else if (user == 4) {
             exit(1);
+        }
+        else {
+            printf("That's not an option!\n");
         }
     }
 
