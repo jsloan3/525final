@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "sstream": "c",
+        "pthread.h": "c"
+    }
+}
